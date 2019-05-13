@@ -1,24 +1,24 @@
 {
-    "name": "videos/importer",
+    "name": "php/console",
     "license": "free",
-    "description": "Videos Importer",
-    "keywords": ["videos","importer"],
+    "description": "Php Console",
+    "keywords": ["Php","console"],
     "authors": [
         {
-            "name": "importer",
-            "email": "importer@cmproductions.com"
+            "name": "php-console",
+            "email": "php@console.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "CMProductions\\VideosImporter\\": "src"
+            "Php\\Console\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "CMProductions\\VideosImporter\\Tests\\Unit\\": "tests/unit/",
-            "CMProductions\\VideosImporter\\Tests\\Integration\\": "tests/integration/",
-            "CMProductions\\VideosImporter\\Tests\\Acceptance\\": "tests/acceptance/"
+            "Php\\Console\\Tests\\Unit\\": "tests/unit/",
+            "Php\\Console\\VideosImporter\\Tests\\Integration\\": "tests/integration/",
+            "Php\\Console\\VideosImporter\\Tests\\Acceptance\\": "tests/acceptance/"
         }
     },
     "require": {

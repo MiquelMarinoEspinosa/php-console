@@ -9,4 +9,4 @@ default:
         paths:
           - '%paths.base%/../tests/acceptance/UserInterface/Command/Behat'
         contexts:
-          - CMProductions\VideosImporter\Tests\Acceptance\UserInterface\Command\Behat\VideoImporterContext
+          - Php\Console\Tests\Acceptance\UserInterface\Command\Behat\VideoImporterContext

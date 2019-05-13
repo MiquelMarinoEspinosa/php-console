@@ -1,23 +1,45 @@
 services:
-  cm-productions.video.importer.user_interface.video_importer_command:
-      class: CMProductions\VideosImporter\UserInterface\Command\Video\Importer\VideoImporterCommand
+  php.console.importer.user_create_command:
+      class: Php\Console\UserInterface\Command\User\UserCreateCommand
       tags:
           -  { name: console.command }
       arguments:
-          - '@cm-productions.video.importer.application.import_videos_use_case'
+          - '@user.get_user_use_case'
 
-  cm-productions.video.importer.application.import_videos_use_case:
-      class: CMProductions\VideosImporter\Application\UseCase\Video\ImportVideosUseCase
+  user.get_user_use_case:
+    class: Php\Console\Application\UseCase\User\GetUserUseCase
+    arguments:
+      - '@user.redis_user_repository'
+      - '@user.user_data_transformer'
+    public: true
+
+    user.create_user_use_case:
+      class: Php\Console\Application\UseCase\User\CreateUserUseCase
       arguments:
-          - '@cm-productions.video.importer.infrastructure.source_video_importer_factory'
-          - '@cm-productions.video.importer.infrastructure.in_memory_video_repository'
-          - '@cm-productions.video.importer.application.video_colllection_resource_data_transformer'
+        - '@user.uuid_user_id_generator'
+        - '@user.redis_user_repository'
+        - '@user.user_data_transformer'
+      public: true
 
-  cm-productions.video.importer.infrastructure.source_video_importer_factory:
-      class: CMProductions\VideosImporter\Infrastructure\Importer\Domain\Model\Video\SourceVideoImporterFactory
+    user.redis_user_repository:
+      class: Php\Console\Infrastructure\Domain\Model\User\RedisUserRepository
+      arguments:
+        - '@user.redis_master_connection'
+      public: true
 
-  cm-productions.video.importer.infrastructure.in_memory_video_repository:
-      class: CMProductions\VideosImporter\Infrastructure\Persistence\Domain\Model\Video\InMemoryVideoRepository
+    user.user_data_transformer:
+      class: Php\Console\Application\DataTransformer\User\UserDataTransformer
+      public: true
 
-  cm-productions.video.importer.application.video_colllection_resource_data_transformer:
-      class: CMProductions\VideosImporter\Application\DataTransformer\Video\VideoCollectionDataTransformer
+    user.redis_master_connection:
+      class: \Redis
+      calls:
+        - method: connect
+          arguments:
+            - '%redis.master.host%'
+            - '%redis.master.port%'
+      public: true
+
+    user.uuid_user_id_generator:
+      class:  Php\Console\Infrastructure\Domain\Model\User\UuidUserIdGenerator
+      public: true

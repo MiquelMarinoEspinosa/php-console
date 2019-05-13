@@ -1,6 +1,6 @@
 <?php
 
-namespace CMProductions\VideosImporter;
+namespace Php\Console;
 
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;

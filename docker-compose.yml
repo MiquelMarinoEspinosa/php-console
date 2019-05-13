@@ -5,7 +5,7 @@ services:
         build:
             context: etc/devel/docker
         image: php/php-cli
-        container_name: cm-productions.videos-importer
+        container_name: miquel.php-console
         volumes:
             - ".:/app"
         extra_hosts:
