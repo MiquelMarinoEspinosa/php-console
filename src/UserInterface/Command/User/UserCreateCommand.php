@@ -2,8 +2,6 @@
 
 namespace Php\Console\UserInterface\Command\User;
 
-use Php\Console\Application\UseCase\Video\ImportVideosRequest;
-use Php\Console\Application\UseCase\Video\ImportVideosUseCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -25,12 +23,12 @@ class UserCreateCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('video:importer')
-            ->setDescription('Video importer command from sources')
+            ->setName('user:create')
+            ->setDescription('Create a new user')
             ->addArgument(
-                'sources',
+                'name',
                 InputArgument::IS_ARRAY,
-                'Sources from import videos'
+                'User\'s name'
             );
         ;
     }
