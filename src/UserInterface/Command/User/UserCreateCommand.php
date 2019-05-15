@@ -2,6 +2,8 @@
 
 namespace Php\Console\UserInterface\Command\User;
 
+use Php\Console\Application\UseCase\User\CreateUserRequest;
+use Php\Console\Application\UseCase\User\CreateUserUseCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -9,15 +11,15 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class UserCreateCommand extends Command
 {
-    /** @var ImportVideosUseCase */
-    private $importVideosUseCase;
+    /** @var CreateUserUseCase */
+    private $createUserUseCase;
 
     public function __construct(
-        ImportVideosUseCase $importVideosUseCase,
+        CreateUserUseCase $createUserUseCase,
         string $name = null
     ) {
         parent::__construct($name);
-        $this->importVideosUseCase = $importVideosUseCase;
+        $this->createUserUseCase = $createUserUseCase;
     }
 
     protected function configure()
@@ -27,7 +29,7 @@ class UserCreateCommand extends Command
             ->setDescription('Create a new user')
             ->addArgument(
                 'name',
-                InputArgument::IS_ARRAY,
+                InputArgument::REQUIRED,
                 'User\'s name'
             );
         ;
@@ -35,19 +37,25 @@ class UserCreateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $sources = $input->getArgument('sources');
-        if (empty($sources)) {
+        $userName = $input->getArgument('name');
+        if (empty($userName)) {
             $output->writeln(
-                '<comment>Please, provide some sources.'
-                        . ' No sources provided. So no videos has been imported :/</comment>'
+                '<comment>Please, provide the user name.'
+                        . ' No user has been created :/</comment>'
             );
             exit();
         }
 
         try {
-            $importVideosRequest = new ImportVideosRequest($sources);
-            $videoCollectionResource = $this->importVideosUseCase->execute($importVideosRequest);
-            $message = $this->buildMessageResponse($videoCollectionResource);
+            $createUserRequest = new CreateUserRequest($userName);
+            $userResource = $this->createUserUseCase->execute($createUserRequest);
+
+            $message = PHP_EOL . '<info>';
+            $message .= 'The user has been successfully created. :)' . PHP_EOL;
+            $message .= 'id: ' . $userResource->getId() . PHP_EOL;
+            $message .= 'name: ' . $userResource->getName() . PHP_EOL;
+            $message .= '</info>';
+
             $output->writeln($message);
         } catch (\Exception $exception) {
             $output->writeln(
@@ -55,33 +63,5 @@ class UserCreateCommand extends Command
                         . $exception->getMessage() . '</error>'
             );
         }
-    }
-
-    private function buildMessageResponse($videoCollectionResource): string
-    {
-        $message = '<info>';
-        $source = '';
-        foreach ($videoCollectionResource->videoResources() as $videoResource) {
-            if ($videoResource->sourceName() !== $source) {
-                if (!empty($source)) {
-                    $message .= PHP_EOL;
-                }
-                $source = $videoResource->sourceName();
-                $message .= "imported source: $source" . PHP_EOL;
-            }
-            $message .= 'imported video: "'
-                . $videoResource->title() . '"; Url: '
-                . $videoResource->url();
-
-            if (!empty($videoResource->tags())) {
-                $message .= '; Tags: '
-                    . implode(',', $videoResource->tags());
-            }
-
-            $message .= PHP_EOL;
-        }
-        $message .= '</info>';
-
-        return $message;
     }
 }

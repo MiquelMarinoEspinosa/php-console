@@ -3,6 +3,7 @@
 namespace Php\Console;
 
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
@@ -14,7 +15,8 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         $bundles = [
-            new FrameworkBundle()
+            new FrameworkBundle(),
+            new MonologBundle()
         ];
 
         return $bundles;

@@ -4,7 +4,7 @@ services:
       tags:
           -  { name: console.command }
       arguments:
-          - '@user.get_user_use_case'
+          - '@user.create_user_use_case'
 
   user.get_user_use_case:
     class: Php\Console\Application\UseCase\User\GetUserUseCase
@@ -13,33 +13,33 @@ services:
       - '@user.user_data_transformer'
     public: true
 
-    user.create_user_use_case:
-      class: Php\Console\Application\UseCase\User\CreateUserUseCase
-      arguments:
-        - '@user.uuid_user_id_generator'
-        - '@user.redis_user_repository'
-        - '@user.user_data_transformer'
-      public: true
+  user.create_user_use_case:
+    class: Php\Console\Application\UseCase\User\CreateUserUseCase
+    arguments:
+      - '@user.uuid_user_id_generator'
+      - '@user.redis_user_repository'
+      - '@user.user_data_transformer'
+    public: true
 
-    user.redis_user_repository:
-      class: Php\Console\Infrastructure\Domain\Model\User\RedisUserRepository
-      arguments:
-        - '@user.redis_master_connection'
-      public: true
+  user.redis_user_repository:
+    class: Php\Console\Infrastructure\Domain\Model\User\RedisUserRepository
+    arguments:
+      - '@user.redis_master_connection'
+    public: true
 
-    user.user_data_transformer:
-      class: Php\Console\Application\DataTransformer\User\UserDataTransformer
-      public: true
+  user.user_data_transformer:
+    class: Php\Console\Application\DataTransformer\User\UserDataTransformer
+    public: true
 
-    user.redis_master_connection:
-      class: \Redis
-      calls:
-        - method: connect
-          arguments:
-            - '%redis.master.host%'
-            - '%redis.master.port%'
-      public: true
+  user.redis_master_connection:
+    class: \Redis
+    calls:
+      - method: connect
+        arguments:
+          - '%redis.master.host%'
+          - '%redis.master.port%'
+    public: true
 
-    user.uuid_user_id_generator:
-      class:  Php\Console\Infrastructure\Domain\Model\User\UuidUserIdGenerator
-      public: true
+  user.uuid_user_id_generator:
+    class:  Php\Console\Infrastructure\Domain\Model\User\UuidUserIdGenerator
+    public: true
