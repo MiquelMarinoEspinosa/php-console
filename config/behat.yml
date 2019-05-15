@@ -2,11 +2,11 @@ default:
     formatters:
       pretty: true
     autoload:
-      - '%paths.base%/../tests/acceptance/UserInterface/Command/Behat'
+      - '%paths.base%/../tests/acceptance/UserInterface/Command/User/Behat'
 
     suites:
       default:
         paths:
-          - '%paths.base%/../tests/acceptance/UserInterface/Command/Behat'
+          - '%paths.base%/../tests/acceptance/UserInterface/Command/User/Behat'
         contexts:
-          - Php\Console\Tests\Acceptance\UserInterface\Command\Behat\VideoImporterContext
+          - Php\Console\Tests\Acceptance\UserInterface\Command\User\Behat\UserContext

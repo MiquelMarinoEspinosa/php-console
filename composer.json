@@ -17,8 +17,8 @@
     "autoload-dev": {
         "psr-4": {
             "Php\\Console\\Tests\\Unit\\": "tests/unit/",
-            "Php\\Console\\VideosImporter\\Tests\\Integration\\": "tests/integration/",
-            "Php\\Console\\VideosImporter\\Tests\\Acceptance\\": "tests/acceptance/"
+            "Php\\Console\\Tests\\Integration\\": "tests/integration/",
+            "Php\\Console\\Tests\\Acceptance\\": "tests/acceptance/"
         }
     },
     "require": {
