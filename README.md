@@ -1,0 +1,7 @@
+PHP fpm basic configuration with a very simple DDD architecture sample
+
+- Create file .env with your ip address based on .env.dist
+- docker-compose up
+- docker exec -i -t miquel.php-fpm composer install
+- docker exec -i -t miquel.php-fpm vendor/bin/behat
+- php /app/bin/console user:create miquel
