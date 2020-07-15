@@ -1,36 +1,43 @@
 {
-    "name": "php/console",
-    "license": "free",
-    "description": "Php Console",
-    "keywords": ["Php","console"],
-    "authors": [
-        {
-            "name": "php-console",
-            "email": "php@console.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Php\\Console\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Php\\Console\\Tests\\Unit\\": "tests/unit/",
-            "Php\\Console\\Tests\\Integration\\": "tests/integration/",
-            "Php\\Console\\Tests\\Acceptance\\": "tests/acceptance/"
-        }
-    },
-    "require": {
-        "ramsey/uuid": "^3.8",
-        "symfony/framework-bundle": "^4.1",
-        "symfony/console": "^4.1",
-        "symfony/yaml": "^4.1",
-        "symfony/monolog-bundle": "^3.3"
-    },
-    "require-dev": {
-        "squizlabs/php_codesniffer": "^3.3",
-        "behat/behat": "^3.5",
-        "phpunit/phpunit": "^9.2"
+  "name": "php/console",
+  "license": "free",
+  "description": "Php Console",
+  "keywords": [
+    "Php",
+    "console"
+  ],
+  "authors": [
+    {
+      "name": "php-console",
+      "email": "php@console.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Php\\Console\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Php\\Console\\Tests\\Unit\\": "tests/unit/",
+      "Php\\Console\\Tests\\Integration\\": "tests/integration/",
+      "Php\\Console\\Tests\\Acceptance\\": "tests/acceptance/"
+    }
+  },
+  "require": {
+    "ramsey/uuid": "^3.8",
+    "symfony/framework-bundle": "^4.1",
+    "symfony/console": "^4.1",
+    "symfony/yaml": "^4.1",
+    "symfony/monolog-bundle": "^3.3"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.3",
+    "behat/behat": "^3.5",
+    "phpunit/phpunit": "^9.2",
+    "phpspec/prophecy-phpunit": "^2.0"
+  },
+  "bin": [
+    "vendor/bin/behat"
+  ]
 }
