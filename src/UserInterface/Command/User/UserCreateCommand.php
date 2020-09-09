@@ -43,7 +43,8 @@ class UserCreateCommand extends Command
                 '<comment>Please, provide the user name.'
                         . ' No user has been created :/</comment>'
             );
-            exit();
+            
+            return Command::FAILURE;
         }
 
         try {
@@ -57,11 +58,15 @@ class UserCreateCommand extends Command
             $message .= '</info>';
 
             $output->writeln($message);
+            
+            return Command::SUCCESS;
         } catch (\Exception $exception) {
             $output->writeln(
                 '<error>Oooops! some error happened :/: ' . PHP_EOL
                         . $exception->getMessage() . '</error>'
             );
+            
+            return Command::FAILURE;
         }
     }
 }
